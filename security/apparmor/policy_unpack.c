@@ -725,6 +725,10 @@ struct aa_profile *aa_unpack(void *udata, size_t size, const char **ns)
 		profile = ERR_PTR(error);
 	}
 
+	if (aa_g_hash_policy)
+		error = aa_calc_profile_hash(profile, e.version, start,
+					     e.pos - start);
+
 	/* return refcount */
 	return profile;
 }
